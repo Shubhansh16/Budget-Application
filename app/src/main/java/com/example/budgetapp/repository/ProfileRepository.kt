@@ -1,6 +1,7 @@
 package com.example.budgetapp.repository
 
 import com.example.budgetapp.db.ProfileDao
+import com.example.budgetapp.entity.Profile
 import javax.inject.Inject
 
 class ProfileRepository @Inject constructor(
@@ -8,4 +9,6 @@ class ProfileRepository @Inject constructor(
 ){
 
     fun getProfile() = profileDao.getProfileData()
+
+    suspend fun insertProfileData(profile: Profile) = profileDao.insertProfileData(profile)
 }
