@@ -1,5 +1,6 @@
 package com.example.budgetapp.ui.fragments
 
+import android.content.Context.MODE_PRIVATE
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.media.Image
@@ -17,6 +18,7 @@ import com.example.budgetapp.R
 import com.example.budgetapp.databinding.FragmentProfileBinding
 import com.example.budgetapp.ui.viewmodels.ProfileViewModels
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.IOException
 
 
 @AndroidEntryPoint
@@ -35,7 +37,19 @@ class ProfileFragment : Fragment() {
             val source = ImageDecoder.createSource(requireContext().contentResolver!!, filePath)
             bitmap = ImageDecoder.decodeBitmap(source)
         }
-        saveImageToInternalStorage() 
+        saveImageToInternalStorage("profile",bitmap)
+    }
+
+    private fun saveImageToInternalStorage(fileName: String, bitmap: Bitmap): Boolean {
+        return try {
+            requireContext().openFileOutput("$fileName.jpg", MODE_PRIVATE).use { outputStream->
+               //if ()
+            }
+            true
+        } catch (e:IOException){
+            e.printStackTrace()
+            false
+        }
     }
 
     override fun onCreateView(
